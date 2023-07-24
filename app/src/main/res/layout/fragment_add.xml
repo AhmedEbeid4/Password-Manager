@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.ui.AddFragment">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="fromView"
+            type="boolean" />
+        <variable
+            name="pass"
+            type="com.ebeid.passwordmanager.domain.model.PasswordModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingBottom="10dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fieldsFather"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                >
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout2"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:hint="@string/title"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/titleField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{pass.title}"
+                        canEdit="@{!fromView}"
+                        android:padding="23dp"
+                        android:inputType="text" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout3"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:hint="@string/account"
+                    app:endIconDrawable="@drawable/baseline_clear_24"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/copyAccount"
+                    app:layout_constraintTop_toBottomOf="@id/textInputLayout2"
+                    app:startIconDrawable="@drawable/baseline_person_24">
+
+                    <EditText
+                        android:id="@+id/accountNameField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        canEdit="@{!fromView}"
+                        android:text="@{pass.account}"
+                        android:padding="23dp"
+                        android:inputType="textPersonName" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/copyAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:paddingHorizontal="10dp"
+                    android:visibility="@{fromView ? View.VISIBLE : View.GONE}"
+                    android:src="@drawable/baseline_content_copy_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textInputLayout3"
+                    app:layout_constraintTop_toBottomOf="@id/textInputLayout2" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout4"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:hint="@string/username"
+                    android:layout_marginEnd="10dp"
+                    app:endIconDrawable="@drawable/baseline_clear_24"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textInputLayout3"
+                    app:layout_constraintEnd_toStartOf="@id/copyUserName"
+                    app:startIconDrawable="@drawable/baseline_person_24">
+
+                    <EditText
+                        android:id="@+id/userNameField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{pass.username}"
+                        canEdit="@{!fromView}"
+                        android:padding="23dp"
+                        android:inputType="textPersonName"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/copyUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:paddingHorizontal="10dp"
+                    android:visibility="@{fromView ? View.VISIBLE : View.GONE}"
+                    android:src="@drawable/baseline_content_copy_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textInputLayout4"
+                    app:layout_constraintTop_toBottomOf="@id/textInputLayout3" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:hint="@string/password"
+                    app:endIconMode="password_toggle"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/randomCopyPasswordBtn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textInputLayout4"
+                    app:startIconDrawable="@drawable/baseline_lock_24">
+
+                    <EditText
+                        android:id="@+id/passwordField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        canEdit="@{!fromView}"
+                        android:text="@{pass.password}"
+                        android:importantForAutofill="no"
+                        android:inputType="textPassword"
+                        android:padding="23dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/randomCopyPasswordBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:paddingHorizontal="10dp"
+                    copyRandomB="@{!fromView}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textInputLayout"
+                    app:layout_constraintTop_toBottomOf="@id/textInputLayout4" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/addBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="100dp"
+                android:background="@color/black"
+                android:padding="10dp"
+                android:visibility="@{fromView ? View.GONE : View.VISIBLE}"
+                android:radius="10dp"
+                android:text="@string/add"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fieldsFather" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/loading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="100dp"
+                android:background="@color/black"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fieldsFather">
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:indeterminateTint="@color/white"
+                    android:padding="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</layout>
