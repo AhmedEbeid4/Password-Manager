@@ -46,7 +46,7 @@ constructor(
         }
     }
 
-    private fun validate(
+    fun validate(
         title: String,
         account: String,
         username: String,

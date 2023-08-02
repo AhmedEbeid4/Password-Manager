@@ -28,7 +28,7 @@ constructor(private val passwordRepository: PasswordRepository) {
             }
         }
     }
-    private fun validate(password: String,confirmPassword: String):String{
+    fun validate(password: String,confirmPassword: String):String{
         if(password != confirmPassword){
             return "Check Your Password"
         }

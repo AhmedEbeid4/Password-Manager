@@ -3,7 +3,6 @@ package com.ebeid.passwordmanager.presentation.ui
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -39,36 +38,40 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         this.setHasOptionsMenu(true)
-        viewModel = ViewModelProvider(requireActivity())[StorePasswordViewModel::class.java]
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        Log.e("PASSWORD_LIST",viewModel.passwordsList.value.toString())
-        if (viewModel.passwordsList.value!!.isEmpty!!) {
-            binding.noData.show()
-        }
-
-        binding.addBtn.setOnClickListener { navigateToAdd() }
-
-
-        adapter = PasswordsAdapter { navigateToShow(it) }
-        adapter.submitList(viewModel.passwordsList.value!!.data)
-
-        binding.passwordsRecyclerView.adapter = adapter
-
-        val swipeCallBack = DefaultSwipe(requireContext(),{ navigateToUpdate(it) },{ index ->
-            viewModel.deletePassword(index, {
-                Snackbar.make(requireView(),"Password Deleted !",Snackbar.LENGTH_SHORT).show()
-            },{
-                Snackbar.make(requireView(),it,Snackbar.LENGTH_SHORT).show()
-            })
-        })
-        val itemTouchHelper = ItemTouchHelper(swipeCallBack)
-        itemTouchHelper.attachToRecyclerView(binding.passwordsRecyclerView)
-
-        onDataChanged()
         return binding.root
     }
 
-    private fun onDataChanged() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity())[StorePasswordViewModel::class.java]
+        if (viewModel.passwordsList.value!!.isEmpty!!) {
+            binding.noData.show()
+        }
+        binding.addBtn.setOnClickListener { navigateToAdd() }
+        setUpAdapter()
+        setUpItemTouchHelper()
+        observeData()
+    }
+    private fun setUpAdapter(){
+        adapter = PasswordsAdapter { navigateToShow(it) }
+        adapter.submitList(viewModel.passwordsList.value!!.data)
+        binding.passwordsRecyclerView.adapter = adapter
+    }
+    private fun setUpItemTouchHelper(){
+        val itemTouchHelper = ItemTouchHelper(setUpSwipe())
+        itemTouchHelper.attachToRecyclerView(binding.passwordsRecyclerView)
+    }
+    private fun setUpSwipe():DefaultSwipe{
+        return DefaultSwipe(requireContext(), { navigateToUpdate(it) }, { index ->
+            viewModel.deletePassword(index, {
+                Snackbar.make(requireView(), "Password Deleted !", Snackbar.LENGTH_SHORT).show()
+            }, {
+                Snackbar.make(requireView(), it, Snackbar.LENGTH_SHORT).show()
+            })
+        })
+    }
+    private fun observeData() {
         viewModel.passwordsList.observe(viewLifecycleOwner) {
             when (it.status) {
                 DataStatus.Status.LOADING -> {
@@ -80,7 +83,6 @@ class HomeFragment : Fragment() {
                 }
 
                 DataStatus.Status.SUCCESS -> {
-                    Log.i("DATAAAAAA", it.toString())
                     binding.apply {
                         noData.hide()
                         progressBar.hide()
@@ -104,22 +106,32 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateToShow(index: Int) {
-        val action = HomeFragmentDirections.actionHomeFragmentToAddFragment()
-        action.from = 1
-        action.index = index
-        findNavController().navigate(action)
+        try {
+            val action = HomeFragmentDirections.actionHomeFragmentToAddFragment()
+            action.from = 1
+            action.index = index
+            findNavController().navigate(action)
+        } catch (_: Exception) {
+        }
     }
+
     private fun navigateToUpdate(index: Int) {
-        val action = HomeFragmentDirections.actionHomeFragmentToAddFragment()
-        action.from = 2
-        action.index = index
-        findNavController().navigate(action)
+        try {
+            val action = HomeFragmentDirections.actionHomeFragmentToAddFragment()
+            action.from = 2
+            action.index = index
+            findNavController().navigate(action)
+        } catch (_: Exception) {
+        }
     }
 
     private fun navigateToAdd() {
-        val action = HomeFragmentDirections.actionHomeFragmentToAddFragment()
-        action.from = 0
-        findNavController().navigate(action)
+        try {
+            val action = HomeFragmentDirections.actionHomeFragmentToAddFragment()
+            action.from = 0
+            findNavController().navigate(action)
+        } catch (_: Exception) {
+        }
     }
 
     private fun showDeleteAllDialog() {
